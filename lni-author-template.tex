@@ -13,10 +13,15 @@
 %%% Mehrere Autoren werden durch \and voneinander getrennt.
 %%% Die Fußnote enthält die Adresse sowie eine E-Mail-Adresse.
 %%% Das optionale Argument (sofern angegeben) wird für die Kopfzeile verwendet.
-\author[Vorname1 Name1\and Vorname2 Name2]
-{Vorname1 Nachname1\footnote{Einrichtung/Universität, Abteilung, Anschrift, Postleitzahl Ort, \email{emailadresse@author1}}\and
- Vorname2 Nachname2\footnote{Einrichtung/Universität, Abteilung, Anschrift, Postleitzahl Ort, \email{emailadresse@author2}}
- und weitere Autorinnen und Autoren in der gleichen Notation}
+\author[Vorname1 Name1\and Vorname2 Name2\and Vorname3 Name3\and Vorname4 Name4\and Vorname5 Name5\and Vorname6 Name6]
+{
+ Vorname1 Nachname1\footnote{Einrichtung/Universität, Abteilung, Anschrift, Postleitzahl Ort, \email{emailadresse@author1}}\and
+ Vorname2 Nachname2\footnote{Einrichtung/Universität, Abteilung, Anschrift, Postleitzahl Ort, \email{emailadresse@author2}}\and
+ Vorname3 Nachname3\footnote{Einrichtung/Universität, Abteilung, Anschrift, Postleitzahl Ort, \email{emailadresse@author3}}\and
+ Vorname4 Nachname4\footnote{Einrichtung/Universität, Abteilung, Anschrift, Postleitzahl Ort, \email{emailadresse@author4}}\and
+ Vorname5 Nachname5\footnote{Einrichtung/Universität, Abteilung, Anschrift, Postleitzahl Ort, \email{emailadresse@author5}}
+}
+%\fancyhead[LE]{\hspace{0.05cm}\small\thepage\hspace{5pt}Nachname1 et al.}
 \title[Kurztitel (falls nötig)]{Titel}
 \startpage{11}% Beginn der Seitenzählung für diesen Beitrag
 \editor{Herausgeber et al.}
@@ -32,6 +37,8 @@ Add your abstract here
 Hier kommen die Keywords hin
 Add your keywords here
 \end{keywords}
+
+\clearpage
 %%% Beginn des Artikeltexts
 \section{Überschrift}
 
