@@ -3,6 +3,15 @@
 This repository aims to provide a quick start for modern LaTeXing with [LNI].
 This README is best viewed in a markdown viewer or [on GitHub](https://github.com/latextemplates/LNI/blob/master/README.md).
 
+In most cases, the template provided by [sieversMartin/LNI](https://github.com/sieversMartin/LNI/) is enough.
+It provides [a very good documentation](https://github.com/sieversMartin/LNI/blob/master/lni.pdf).
+
+This repository here adds following items:
+
+- README.md with a detailed starting instructions and installation hints
+- `paper.tex` with example content and biblatex
+- `paper-bibtex.tex` with example content and bibtex
+
 ## Three starting options
 
 * **Option A**: Use a template with examples and biblatex. This is the most modern option.
