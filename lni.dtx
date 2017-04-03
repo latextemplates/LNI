@@ -25,6 +25,9 @@ It is based on previous templates created on behalf of the GI.
 
 Stable versions are always uploaded to CTAN. In addition you'll find the most 
 recent developer version on GitHub at <https://github.com/sieversMartin/lni>.
+The most recent documentation is available at
+<https://github.com/sieversMartin/LNI/blob/master/lni.pdf>. It includes a short
+description how to use the template and also provides trouble shooting hints.
 
 Please note, that this is not yet an official release!
 
@@ -359,11 +362,12 @@ This work consists of the file  lni.dtx
 % 
 % \section{Installation}
 % The \lni{} bundle is currently distributed via 
-% \href{https://github.com/sieversMartin/LNI}{GitHub}, the GI website and
-% \href{https://www.ctan.org}{CTAN}. The later is the basis for all updates of the 
-% two main \TeX{} distributions \MiKTeX{} and 
-% \TeX{}~Live. Thus the easiest way to get all files needed to typeset an 
-% article for the \LNI{} is to use the package manager for your distribution.
+% \href{https://github.com/sieversMartin/LNI}{GitHub}, the
+% \href{https://www.gi.de/service/publikationen/lni/autorenrichtlinien.html}
+% {GI website} and \href{https://www.ctan.org}{CTAN}.
+% The later is the basis for all updates of the two main \TeX{} distributions
+% \MiKTeX{} and \TeX{}~Live. Thus the easiest way to get all files needed to typeset
+% an article for the \LNI{} is to use the package manager of your distribution.
 % 
 % For a manual installation you should copy all files (cls, tex, pdf and bst) to 
 % your local TEXMF tree and update your file name database.
@@ -471,6 +475,8 @@ This work consists of the file  lni.dtx
 %    Author 1\footnote{Affiliations including \email{email@author1}} \and%
 %    Author 2\footnote{Affiliations including \email{email@author1}}}
 % \end{examplecode}
+% In case the authors are too long for the page header, see \cref{sec:pageheader}
+% of how to shorten the authors for the page header.
 %
 % Finally \cs{maketitle} will output the formatted title page.
 %
@@ -484,6 +490,25 @@ This work consists of the file  lni.dtx
 % \begin{keywords}
 % Give some keywords to categorize your article
 % \end{keywords}
+% \end{examplecode}
+%
+% \subsection{Page header}\label{sec:pageheader}
+% The template automatically sets the page headers according to the requirements of
+% LNI. From page 2 onwards, the title and the authors are printed. These information
+% has to stay in one line. In case the title is too long, use the optional argument
+% for \cs{title}:
+% \begin{examplecode}
+% \title[Short title]{Title}
+% \end{examplecode}
+%
+% \DescribeMacro{\authorrunning}%
+% In case there are many authors on a paper, they might not fit into the paper.
+% For that purpose, additionally use \cs{authorrunning}:
+% \begin{examplecode}
+% \authors[Firstname1 Lastname1 \and Firstname2 Lastname2 \and Firstname3 Lastname3]
+%  {Firstname1 Lastname1\footnote{...} \and Firstname2 Lastname2\footnote{...} \and
+%   Firstname3 Lastname3\footnote{...}}
+% \authorrunning{Lastname1 et al.}
 % \end{examplecode}
 %
 % \subsection{Main text}
@@ -576,7 +601,8 @@ This work consists of the file  lni.dtx
 %
 % If you want to pass settings to \pkg{biblatex} you can use a config 
 % file \texttt{biblatex.cfg}, for additional options please use the macro 
-% \cs{ExecuteBibliographyOptions}. Please consult the package's documentation for 
+% \cs{ExecuteBibliographyOptions}. Please consult the
+% \href{http://texdoc.net/pkg/biblatex}{package's documentation} for
 % more information.
 % \begin{examplecode}
 % % !TeX program = pdflatex
@@ -592,6 +618,32 @@ This work consists of the file  lni.dtx
 % ...
 % \end{document}
 % \end{examplecode}
+%
+%
+% \section{Trouble shooting}
+% This section lists the most common issues when using this template. For more
+% help, please head to
+% \href{https://github.com/egeerardyn/awesome-LaTeX/blob/master/README.md}%
+% {the awesome LaTeX list}.
+%
+% If the compiler error is \texttt{! pdfTeX error (font expansion): auto
+% expansion is onlypossible with scalable fonts.}, the you have to install the
+% \pkg{cm-super} package. Afterwards, run \texttt{initexmf --mkmaps} on the
+% command line. A longer discussion is available at
+% \url{http://tex.stackexchange.com/a/324972/9075}.
+%
+% If the compiler error is ``\texttt{! LaTeX Error: Command \textbackslash
+% openbox already defined.}'', insert \cs{let}\cs{openbox}\cs{relax} before
+% \cs{usepackage\{amsthm\}}.
+%
+% If the compiler error is ``\texttt{! Undefined control sequence. l.84
+% \textbackslash ulp@afterend}'', just clean up (remove \texttt{paper.aux})
+% and recompile.
+%
+% If the compiler error is ``\texttt{! Package xkeyval Error: 'family\_i'
+% undefined in families blx@opt@namepart'.}'', it is an indicator that you
+% switched from bibtex to biblatex. Clean up (remove \texttt{paper.bbl})
+% and recompile.
 %
 % \section{Bugs and feature request}
 % If you find a bug or have a feature request, please open an ``issue'' at the
@@ -757,6 +809,9 @@ This work consists of the file  lni.dtx
 \renewcommand{\author}{\@dblarg\@@author}
 \def\@@author[#1]#2{\gdef\@shortauthor{{\let\footnote\@gobble%
    \def\and{\unskip,\ }#1}}\gdef\@author{#2}}
+%    \end{macrocode}
+%    \begin{macrocode}
+\newcommand{\authorrunning}[1]{\fancyhead[LE]{\hspace{0.05cm}\small\thepage\hspace{5pt}#1}}
 %    \end{macrocode}
 %    \begin{macrocode}
 \newcommand*{\email}[1]{{\urlstyle{same}\protect\url{#1}}}
