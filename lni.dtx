@@ -212,7 +212,8 @@ This work consists of the file  lni.dtx
 \usepackage{textcomp}
 \usepackage{upquote}
 \usepackage[final]{listings}
-\usepackage{xspace}
+%%%\usepackage{xspace}
+\usepackage{csquotes}
 \usepackage[dvipsnames]{xcolor}
 \newcommand*{\MiKTeX}{\textsf{MiK\TeX{}}}
 \usepackage[%
@@ -223,6 +224,19 @@ This work consists of the file  lni.dtx
 	linktocpage,%
 	colorlinks=true]{hyperref}
 \usepackage[nameinlink,capitalise]{cleveref}
+
+\DeclareFontFamily{U}{MnSymbolC}{}
+\DeclareSymbolFont{MnSyC}{U}{MnSymbolC}{m}{n}
+\DeclareFontShape{U}{MnSymbolC}{m}{n}{
+    <-6>  MnSymbolC5
+   <6-7>  MnSymbolC6
+   <7-8>  MnSymbolC7
+   <8-9>  MnSymbolC8
+   <9-10> MnSymbolC9
+  <10-12> MnSymbolC10
+  <12->   MnSymbolC12%
+}{}
+\DeclareMathSymbol{\powerset}{\mathord}{MnSyC}{180}
 
 \newcommand{\lni}{\texttt{lni}}	
 \newcommand{\LNI}{\emph{Lecture Notes in Informatics}}
@@ -262,7 +276,7 @@ This work consists of the file  lni.dtx
  keywordstyle = \color{blue}\bfseries,
  language     = [LaTeX]{TeX},
  moretexcs    = {,
-   includegraphics,email,addbibresource,printbibliography,
+   addbibresource,email,ExecuteBibliographyOptions,includegraphics,printbibliography,
  }
  frame        = single,
  backgroundcolor = \color{yellow!60},
@@ -309,7 +323,7 @@ This work consists of the file  lni.dtx
 % \GetFileInfo{\jobname.dtx}
 % \DoNotIndex{\newcommand,\newenvironment}
 %
-% \title{\textsf{lni} --- A class for submissions to the\\``Lecture Notes in
+% \title{\textsf{lni} -- A class for submissions to the\\``Lecture Notes in
 % Informatics''\thanks{This file describes version \fileversion, last revised 
 % \filedate.}}
 % \author{Martin Sievers\thanks{Email: martin.sievers@schoenerpublizieren.de}}
@@ -340,14 +354,14 @@ This work consists of the file  lni.dtx
 %
 % This is the first public release. I would to thank especially
 % \href{https://github.com/koppor/}{Oliver Kopp} and
-% \href{https://www.fernuni-hagen.de/evis/team/stefan.strecker.shtml}{Stefan Strecker}
-% and his team for their suggestions and tests.
+% \href{https://www.fernuni-hagen.de/evis/team/stefan.strecker.shtml}{Stefan 
+% Strecker} and his team for their suggestions and tests.
 % 
 % \section{Installation}
-% The \lni{} bundle is distributed via 
-% \href{https://github.com/sieversMartin/LNI}{GitHub} and
-% \href{https://www.ctan.org}{CTAN}. The later is the basis for all updates of the two 
-% main \TeX{} distributions \MiKTeX{} and 
+% The \lni{} bundle is currently distributed via 
+% \href{https://github.com/sieversMartin/LNI}{GitHub}, the GI website and
+% \href{https://www.ctan.org}{CTAN}. The later is the basis for all updates of the 
+% two main \TeX{} distributions \MiKTeX{} and 
 % \TeX{}~Live. Thus the easiest way to get all files needed to typeset an 
 % article for the \LNI{} is to use the package manager for your distribution.
 % 
@@ -394,10 +408,37 @@ This work consists of the file  lni.dtx
 % when setting the class option \opt{biblatex}. Please see as well 
 % \cref{sec:bibliography}.
 %
-% \section{Setting-up a document}
+% \DescribeMacro{nocleveref}When referencing figures, one has to type
+% \texttt{Figure\textasciitilde}\cs{ref\marg{label}}. The package \pkg{cleveref}
+% reduces the effort by offering the command \cs{cref\marg{label}}. This can be used
+% with all floating objects. The package is loaded as default. In case it causes
+% issues, one can disable it using with the \opt{nocleveref} option.
+%
+% \DescribeMacro{nohyperref}\pkg{hyperref} is used for colored hyperlink within the 
+% articles. If you consider problems or just do not want that feature, you can 
+% disable it by using the option \opt{nohyperref}.
+% 
+% \section{Setting up a document}
 % You can use the file \file{lni-author-template.tex} as a starting point 
 % for setting up a document for submission. The \lni{} class uses the standard 
 % ways to build an article.
+%
+% \subsection{Special meta data}\label{sec:metadata}
+% There is not just one \enquote{\TeX} and one \enquote{bibliography tool}, but many 
+% different ways to transform a .tex file into a PDF.
+% Some \TeX{} editors like \texttt{TeXstudio}, \texttt{TeXmaker} and 
+% \texttt{TeXshop} support a special set of meta data to tell the editor, how to 
+% deal with a concrete document.
+% 
+% A typical example looks like:
+% \begin{examplecode}
+% % !TeX program = pdflatex
+% % !BIB program = bibtex8
+% % !TeX encoding = UTF-8
+% % !TeX spellcheck = en_GB
+% \documentclass[english]{lni}
+% \end{examplecode}
+%
 % \subsection{Special macros for editors}
 % \DescribeMacro{\startpage}\DescribeMacro{\editor}\DescribeMacro{\booktitle}%
 % \DescribeMacro{\year}In addition to the macros stated in 
@@ -510,7 +551,9 @@ This work consists of the file  lni.dtx
 %
 % \subsubsection{Math}
 % If you need mathematics, you can load \pkg{amsmath} and \pkg{mathtools} for 
-% additional features.
+% additional features. The \lni{} class offers by default the command \cs{powerset} 
+% to render
+% the powerset symbol correctly as $\powerset$ and not as Weierstrass p ($\wp$).
 %
 % \subsection{Bibliography}\label{sec:bibliography}
 % The old \lni{} class file only supports \BibTeX{} with bst files for German and 
@@ -522,11 +565,25 @@ This work consists of the file  lni.dtx
 % With option 
 % \opt{biblatex} (cf.~\cref{sec:options}) you can easily switch to the modern
 % \pkg{biblatex} package. However, you have to add information on the bib file(s) in 
-% your preamble using \cs{addbibresource} and call \cs{printbibliography} where 
-% you want the bibliography to appear:
+% your preamble using \cs{addbibresource\marg{Bib file(s)}} and call 
+% \cs{printbibliography} where 
+% you want the bibliography to appear.
+%
+% Please note, that the \lni{} class sets 
+% \texttt{biber} as the default bibliography tool. \texttt{biber} is part of both 
+% major \TeX{} distributions and can easily be used within most \TeX{} editors, 
+% e.\,g. by using special meta data as described in \cref{sec:metadata}.
+%
+% If you want to pass settings to \pkg{biblatex} you can use a config 
+% file \texttt{biblatex.cfg}, for additional options please use the macro 
+% \cs{ExecuteBibliographyOptions}. Please consult the package's documentation for 
+% more information.
 % \begin{examplecode}
+% % !TeX program = pdflatex
+% % !BIB program = biber   
 % \documentclass[biblatex]{lni}
 % ...
+% \ExecuteBibliographyOptions{...}
 % \addbibresource{$FILENAME.bib}   
 % ...
 % \begin{document}
@@ -574,6 +631,9 @@ This work consists of the file  lni.dtx
 \newif\ifusehyperref
 \usehyperreftrue
 \DeclareOption{nohyperref}{\usehyperreffalse}
+\newif\ifusecleveref
+\useclevereftrue
+\DeclareOption{nocleveref}{\useclevereffalse}
 \newif\ifusebiblatex
 \usebiblatexfalse
 \DeclareOption{biblatex}{\usebiblatextrue}
@@ -642,6 +702,18 @@ This work consists of the file  lni.dtx
     style=LNI,     % The GI style - see https://www.ctan.org/pkg/biblatex-lni
     natbib=true    % Required for \Citet
   ]{biblatex}[2016-09-15] %at least version 3.6 of biblatex is required.
+  % Enable hyperlinked authors when using \citeauthor
+  % Source: http://tex.stackexchange.com/a/75916/9075
+  \DeclareCiteCommand{\citeauthor}%
+    {\boolfalse{citetracker}%
+     \boolfalse{pagetracker}%
+     \usebibmacro{prenote}}%
+    {\ifciteindex%
+       {\indexnames{labelname}}%
+       {}%
+     \printtext[bibhyperref]{\printnames{labelname}}}%
+    {\multicitedelim}%
+    {\usebibmacro{postnote}}%
 \fi%
 %    \end{macrocode}
 %    \begin{macrocode}
@@ -959,12 +1031,25 @@ This work consists of the file  lni.dtx
    \hypersetup{%
       pdfdisplaydoctitle,
       bookmarks=false,%
-      %%%breaklinks=true,% set by hyperref based on driver
       colorlinks=true,%
       allcolors=black,%
       %%%pdfpagelayout=TwoPageRight,%
       pdfstartview=Fit%
    }%
+\fi%
+%    \end{macrocode}
+%    \begin{macrocode}
+\ifusecleveref%
+   \iflnienglish
+     \usepackage[capitalise,nameinlink]{cleveref}
+     \crefname{section}{Sect.}{Sect.}
+     \Crefname{section}{Sect.}{Sect.}
+   \else
+     \usepackage[ngerman,nameinlink]{cleveref}
+   \fi%
+   \crefname{figure}{\figurename}{\figurename}
+   \crefname{listing}{\lstlistingname}{\lstlistingname}
+   \crefname{table}{\tablename}{\tablename}
 \fi%
 %    \end{macrocode}
 % enables correct jumping to figures when referencing
