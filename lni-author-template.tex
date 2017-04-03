@@ -9,6 +9,7 @@
 %%% to get the correct hyphenation patterns and terms.
 %%% \documentclass[english]{class}
 %%
+\usepackage{blindtext}
 \begin{document}
 %%% Mehrere Autoren werden durch \and voneinander getrennt.
 %%% Die Fußnote enthält die Adresse sowie eine E-Mail-Adresse.
@@ -22,7 +23,8 @@
  Vorname5 Nachname5\footnote{Einrichtung/Universität, Abteilung, Anschrift, Postleitzahl Ort, \email{emailadresse@author5}}
 }
 %\fancyhead[LE]{\hspace{0.05cm}\small\thepage\hspace{5pt}Nachname1 et al.}
-\title[Kurztitel (falls nötig)]{Titel}
+\authorrunning{Nachname1 et al.}
+\title[Kurztitel]{Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua}
 \startpage{11}% Beginn der Seitenzählung für diesen Beitrag
 \editor{Herausgeber et al.}
 \booktitle{Name-der-Konferenz}
@@ -39,8 +41,12 @@ Add your keywords here
 \end{keywords}
 
 \clearpage
-%%% Beginn des Artikeltexts
 \section{Überschrift}
+\blindtext
+
+\clearpage
+\section{Überschrift}
+\blindtext
 
 %%% Angabe der .bib-Datei (ohne Endung)
 \bibliography{mybibfile}
