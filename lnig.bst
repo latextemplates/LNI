@@ -1000,7 +1000,7 @@ FUNCTION {format.lab.names}
         { nameptr numnames =
             { s nameptr "{ff }{vv }{ll}{ jj}" format.name$ 
             "others" =
-                { s #1 "{ll}" format.name$ #2 text.prefix$ %% second sign of first author if there are others
+                { pop$ s #1 "{ll}" format.name$ #2 text.prefix$ %% second sign of first author if there are others
                 }
                 { s nameptr "{v{}}{l{}}" format.name$ * } %%formats last author
               if$
@@ -1164,8 +1164,8 @@ FUNCTION {author.editor.sort}
         }
         { editor sort.format.names }
       if$
-    }
-    { author sort.format.names }
+   }
+   { author sort.format.names }
   if$
 }
 

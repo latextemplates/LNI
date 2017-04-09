@@ -14,7 +14,8 @@
 %% 
 \NeedsTeXFormat{LaTeX2e}[1999/12/01]
 \ProvidesClass{lni}
-    [2017/03/31 v1.0 A class for submissions to the ``Lecture Notes in Informatics'']
+    [2017/04/07 v1.1BETA Official class for submissions to the ``Lecture Notes
+    in Informatics'']
 \def\@clearglobaloption#1{%
   \def\@tempa{#1}%
   \def\@tempb{\@gobble}%
@@ -139,10 +140,13 @@
   \fi}
 \renewcommand{\title}{\@dblarg\@@title}
 \def\@@title[#1]#2{\gdef\@shorttitle{#1}\gdef\@title{#2}}
+\newcommand{\@subtitle}{}
+\newcommand{\subtitle}[1]{\gdef\@subtitle{#1}}
 \renewcommand{\author}{\@dblarg\@@author}
 \def\@@author[#1]#2{\gdef\@shortauthor{{\let\footnote\@gobble%
    \def\and{\unskip,\ }#1}}\gdef\@author{#2}}
-\newcommand{\authorrunning}[1]{\fancyhead[LE]{\hspace{0.05cm}\small\thepage\hspace{5pt}#1}}
+\newcommand{\authorrunning}[1]{%
+   \fancyhead[LE]{\hspace{0.05cm}\small\thepage\hspace{5pt}#1}}
 \newcommand*{\email}[1]{{\urlstyle{same}\protect\url{#1}}}
 \renewcommand\maketitle{\par%
 \begingroup
@@ -190,6 +194,11 @@
   \raggedright % Linksbündig
   \let\footnote\thanks
     {\fontsize{14}{17}\fontseries{b}\selectfont \@title \par}%
+    \ifx\@subtitle\empty\else
+    \vskip.5\baselineskip
+    {\fontsize{10}{12}\selectfont\itshape
+    \@subtitle}
+    \fi%
     \vskip 19pt% Abstand nach dem Titel
     {\fontsize{10}{12}\selectfont
       \lineskip .5em%
@@ -205,8 +214,10 @@
     \noindent\ignorespaces{\bfseries \abstractname:\ }%
 }{\endquotation}
 \newif\ifkeywords
-\newenvironment{keywords}{\global\keywordstrue\fontsize{9}{10}\selectfont
-    \noindent\ignorespaces{\bfseries Keywords:\ }}{\global\keywordsfalse}
+\newenvironment{keywords}{%
+   \global\keywordstrue\fontsize{9}{10}\selectfont%
+   \def\and{\unskip;\space}%
+   \noindent\ignorespaces{\bfseries Keywords:\ }}{\global\keywordsfalse}
 \let\@RIGsection\section
 \pretocmd\@startsection{\ifkeywords\ClassError{lni}{keywords is an environment, not a macro}{Please change \string\keywords to an environment}\keywordsfalse\fi}{}{}
 \renewcommand{\section}{\@startsection{section}{1}{\z@}%
@@ -399,7 +410,7 @@
 \widowpenalty=10000   % Vermeidet "widows & orphans"
 \clubpenalty=10000
 %% 
-%% Copyright (C) 2016-2017 by Martin Sievers <martin.sievers@schoenerpublizieren.de>
+%% Copyright (C) 2016-2017 by Gesellschaft für Informatik e.V. (GI)
 %% 
 %% This work may be distributed and/or modified under the
 %% conditions of the LaTeX Project Public License (LPPL), either

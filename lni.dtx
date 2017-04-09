@@ -2,42 +2,6 @@
 %<*internal>
 \iffalse
 %</internal>
-%<*readme>
-# lni
-
-```
-----------------------------------------------------------------------------
-lni      -- A class for submissions to the ``Lecture Notes in Informatics''
-(c) 2016 
-Version:    1.0
-Maintainer: Martin Sievers
-Email:      martin.sievers@schoenerpublizieren.de
-License:    Released under the LaTeX Project Public License v1.3c or later
-See:        http://www.latex-project.org/lppl.txt
-----------------------------------------------------------------------------
-```
-
-This is the current version of the class “lni” for submissions to the 
-“[Lecture Notes in Informatics]” published by the “Gesellschaft für Informatik”
-([GI]).
-
-It is based on previous templates created on behalf of the GI.
-
-Stable versions are always uploaded to CTAN. In addition you'll find the most 
-recent developer version on GitHub at <https://github.com/sieversMartin/lni>.
-The most recent documentation is available at
-<https://github.com/sieversMartin/LNI/blob/master/lni.pdf>. It includes a short
-description how to use the template and also provides trouble shooting hints.
-
-Please note, that this is not yet an official release!
-
-## Changelog
-
-* v1.0: First upload of the reworked version
-
-  [GI]: https://www.gi.de/
-  [Lecture Notes in Informatics]: https://www.gi.de/service/publikationen/lni.html
-%</readme>
 %<*internal>
 \fi
 \def\nameofplainTeX{plain}
@@ -53,7 +17,7 @@ Please note, that this is not yet an official release!
 %% 
 %% lnig.bst
 %% Lecture Notes in Informatics Style File (english)
-%% Version 1.0 (2014/12/17)
+%% Version 1.0 (2017/04/07)
 %%
 %%
 %% The Style File is based on alpha.bst
@@ -65,7 +29,10 @@ Please note, that this is not yet an official release!
 %%***************************************************      
 % Changelog:
 %
-%  1.0       (17.12.14), Judith Michael, Alpen-Adria-Universität Klagenfurt, Austria
+%  1.0       (07.04.17), Martin Sievers
+%  - Revised version
+%
+%            (17.12.14), Judith Michael, Alpen-Adria-Universität Klagenfurt, Austria
 % Changes:  
 %  - Last Name before the prename
 %  - ; between Autors
@@ -88,7 +55,7 @@ Please note, that this is not yet an official release!
 %% 
 %% lnig.bst
 %% Lecture Notes in Informatics Style File (german)
-%% Version 2.0 (2014/12/17)
+%% Version 1.0 (2017/04/07)
 %%
 %% The Style File is based on alpha.bst
 %%
@@ -99,11 +66,10 @@ Please note, that this is not yet an official release!
 %%***************************************************      
 % Changelog:
 %
-%  1.0      (21.09.90),  Robert Tolksdorf, K\"ortestr. 30, D-1000,  Berlin 61, West Germany
-% Adapted bibliography style `geralpha' that changes several english-language
-% ``constants'' in the style.
+%  1.0       (07.04.17), Martin Sievers
+%  - Revised version
 %
-%  2.0       (17.12.14), Judith Michael, Alpen-Adria-Universität Klagenfurt, Austria
+%            (17.12.14), Judith Michael, Alpen-Adria-Universität Klagenfurt, Austria
 % Changes:  
 %  - Last Name before the prename
 %  - ; between Autors
@@ -133,7 +99,7 @@ License:| Released under the LaTeX Project Public License v1.3c or later
 \endpreamble
 \postamble
 
-Copyright (C) 2016-2017 by Martin Sievers <martin.sievers@schoenerpublizieren.de>
+Copyright (C) 2016-2017 by Gesellschaft für Informatik e.V. (GI)
 
 This work may be distributed and/or modified under the
 conditions of the LaTeX Project Public License (LPPL), either
@@ -166,7 +132,7 @@ This work consists of the file  lni.dtx
   \usepreamble\bibtexengpre
   \file{\jobname.bst}{\from{\jobname.dtx}{bibtex,eng}}
   \usepreamble\bibtexgerpre
-  \file{\jobname g.bst}{\from{\jobname.dtx}{bibtex,ger}}
+  \file{\jobname{}g.bst}{\from{\jobname.dtx}{bibtex,ger}}
 }
 %</install>
 %<install>\endbatchfile
@@ -179,7 +145,7 @@ This work consists of the file  lni.dtx
 \nopreamble\nopostamble
 \usedir{doc/latex/lni}
 \generate{
-  \file{README.md}{\from{\jobname.dtx}{readme}}
+  %%%\file{README.md}{\from{\jobname.dtx}{readme}}
   \file{lni-author-template.tex}{\from{\jobname.dtx}{template}}
 }
 \ifx\fmtname\nameofplainTeX
@@ -197,7 +163,8 @@ This work consists of the file  lni.dtx
 %<class>\NeedsTeXFormat{LaTeX2e}[1999/12/01]
 %<class>\ProvidesClass{lni}
 %<*class>
-    [2017/03/31 v1.0 A class for submissions to the ``Lecture Notes in Informatics'']
+    [2017/04/07 v1.1BETA Official class for submissions to the ``Lecture Notes 
+    in Informatics'']
 %</class>
 %<*driver>
 \documentclass[a4paper]{ltxdoc}
@@ -215,12 +182,11 @@ This work consists of the file  lni.dtx
 \usepackage{textcomp}
 \usepackage{upquote}
 \usepackage[final]{listings}
-%%%\usepackage{xspace}
 \usepackage{csquotes}
 \usepackage[dvipsnames]{xcolor}
 \newcommand*{\MiKTeX}{\textsf{MiK\TeX{}}}
 \usepackage[%
-	pdftitle={lni: A LaTeX class for submissions to the ``Lecture Notes in 
+	pdftitle={lni: Official LaTeX class for submissions to the ``Lecture Notes in 
    	Informatics'', published by the GI},
    pdfauthor={Martin Sievers},
    urlcolor=blue,%
@@ -279,7 +245,8 @@ This work consists of the file  lni.dtx
  keywordstyle = \color{blue}\bfseries,
  language     = [LaTeX]{TeX},
  moretexcs    = {,
-   addbibresource,email,ExecuteBibliographyOptions,includegraphics,printbibliography,
+   addbibresource,authorrunning,%
+   email,ExecuteBibliographyOptions,includegraphics,printbibliography,
  }
  frame        = single,
  backgroundcolor = \color{yellow!60},
@@ -319,14 +286,12 @@ This work consists of the file  lni.dtx
 %   Grave accent  \`     Left brace    \{     Vertical bar  \|
 %   Right brace   \}     Tilde         \~}
 %
-% \changes{v1.0}{2016/07/04}{Transfered old files into one dtx file}
-% \changes{v1.0}{2016/07/04}{Added \pkg{mmap}, changed options for \pkg{microtype} 
-%  and added macro \cs{powerset}}
+% \changes{v1.0}{2017/04/07}{Official release of revised version}
 %
 % \GetFileInfo{\jobname.dtx}
 % \DoNotIndex{\newcommand,\newenvironment}
 %
-% \title{\textsf{lni} -- A class for submissions to the\\``Lecture Notes in
+% \title{\textsf{lni} -- Official class for submissions to the\\``Lecture Notes in
 % Informatics''\thanks{This file describes version \fileversion, last revised 
 % \filedate.}}
 % \author{Martin Sievers\thanks{Email: martin.sievers@schoenerpublizieren.de}}
@@ -334,26 +299,25 @@ This work consists of the file  lni.dtx
 %
 % \maketitle
 %
-% \changes{v1.0}{2017/03/31}{First public release}
-%
 % \begin{abstract}
-% \noindent After several years the \lni{} bundle was updated. The resulting new 
-% version fixes some long-standing problems and bugs and supports modern packages 
+% \noindent After several years the \lni{} bundle has been updated. The resulting new 
+% version fixes some long-standing bugs, solves problems and supports modern packages 
 % like \pkg{biblatex} and \pkg{microtype}. It has been put into one DTX file to make 
 % maintaining and distributing via CTAN a bit easier.
 % \end{abstract}
 %
 % \section{Introduction}
-% \LaTeX{} templates are often long-lasting. Even if they use meanwhile deprecated 
-% packages they are often passed from one generation of authors to the next.
+% \LaTeX{} templates are often long-lasting. Even if they use meanwhile 
+% deprecated packages they are often passed from one generation of authors to 
+% the next.
 %
 % The \LNI{} thankfully realized, that their bundle should be technologically 
 % modernized while the general layout remains the same.
 %
 % Based on the existing class and bib files I set-up a DTX file and started 
-% reworking the source code. Editors and authors suggested different additions and 
-% changes, which I tried to incoporate without changing the existing mechanisms too 
-% much.
+% reworking the source code. Editors and authors suggested different additions 
+% and changes, which I tried to incoporate without changing the existing 
+% mechanisms too much.
 %
 % This is the first public release. I would to thank especially
 % \href{https://github.com/koppor/}{Oliver Kopp} and
@@ -362,15 +326,18 @@ This work consists of the file  lni.dtx
 % 
 % \section{Installation}
 % The \lni{} bundle is currently distributed via 
-% \href{https://github.com/sieversMartin/LNI}{GitHub}, the
+% \href{https://github.com/gi-ev/LNI}{GitHub}, the
 % \href{https://www.gi.de/service/publikationen/lni/autorenrichtlinien.html}
-% {GI website} and \href{https://www.ctan.org}{CTAN}.
+% {GI website} and (preferably) \href{https://www.ctan.org}{CTAN}.
 % The later is the basis for all updates of the two main \TeX{} distributions
-% \MiKTeX{} and \TeX{}~Live. Thus the easiest way to get all files needed to typeset
-% an article for the \LNI{} is to use the package manager of your distribution.
+% \MiKTeX{} and \TeX{}~Live. Thus the easiest way to get all files needed to 
+% typeset an article for the \LNI{} is to use the package manager of your
+% distribution.
 % 
-% For a manual installation you should copy all files (cls, tex, pdf and bst) to 
-% your local TEXMF tree and update your file name database.
+% For a manual installation please call \texttt{pdflatex lni.dtx} at least 
+% twice and 
+% copy all resulting files (cls, tex, pdf and bst) to your local TEXMF tree. 
+% Don't forget to update your file name database.
 % \newpage
 % \section{Usage}
 % To use the predefined layout for a (German) submission to the \LNI{} just load the 
@@ -457,14 +424,19 @@ This work consists of the file  lni.dtx
 % \end{itemize}
 %
 % \subsection{Title page}\label{sec:titlepage}
-% \DescribeMacro{\title}The title of your work is given using the \cs{title} 
-% macro. In addition to the title itself, you can add a short title to be used 
+% \DescribeMacro{\title}%
+% \DescribeMacro{\subtitle\space(new in v1.1)}%
+% The title of your work is given using the \cs{title} macro. In addition to 
+% the title itself, you can add a short title to be used 
 % in the header of a page:
 % \begin{examplecode}[label={lst:title}]
 % \title[Short title]{Title}
 % \end{examplecode}
-%
+% 
+% You can also add a subtitle by \cs{substitle\marg{subtitle}}.
+% 
 % \DescribeMacro{\author}\DescribeMacro{\email}\DescribeMacro{\footnote}%
+% \DescribeMacro{\and}%
 % The authors of an article are 
 % given using the standard \cs{author} macro. Multiple authors are separated 
 % by \cs{and}; affiliations have to be added with 
@@ -473,30 +445,33 @@ This work consists of the file  lni.dtx
 % \begin{examplecode}[label={lst:author}] 
 % \author[Author 1 \and Author 2]{%
 %    Author 1\footnote{Affiliations including \email{email@author1}} \and%
-%    Author 2\footnote{Affiliations including \email{email@author1}}}
+%    Author 2\footnote{Affiliations including \email{email@author2}}}
 % \end{examplecode}
-% In case the authors are too long for the page header, see \cref{sec:pageheader}
-% of how to shorten the authors for the page header.
+% In case the authors are too long for the page header, see 
+% \cref{sec:pageheader} of how to shorten the authors for the page header.
 %
 % Finally \cs{maketitle} will output the formatted title page.
 %
 % \subsection{Abstract and keywords}
-% Each article should start with a short abstract and some keywords. Please use the 
-% environments \env{abstract} and \env{keywords} for that purpose:
+% \DescribeEnv{abstract}\DescribeEnv{keywords}%
+% \DescribeMacro{\and\space(new in v1.1)}%
+% Each article should start with a short abstract and some keywords. Please use 
+% the environments \env{abstract} and \env{keywords} for that purpose:
 % \begin{examplecode}
 % \begin{abstract}
 % Tell the reader what your article is about
 % \end{abstract}   
 % \begin{keywords}
-% Give some keywords to categorize your article
+% Give some keywords to categorize your article. You can use \and between two
+% keywords to get the correct delimiter (semicolon plus space) automatically.
 % \end{keywords}
 % \end{examplecode}
 %
 % \subsection{Page header}\label{sec:pageheader}
-% The template automatically sets the page headers according to the requirements of
-% LNI. From page 2 onwards, the title and the authors are printed. These information
-% has to stay in one line. In case the title is too long, use the optional argument
-% for \cs{title}:
+% The template automatically sets the page headers according to the
+% requirements of \LNI. From page~2 onwards, the title and the authors are 
+% printed. These information has to stay in one line. In case the title is too 
+% long, use the optional argument for \cs{title}:
 % \begin{examplecode}
 % \title[Short title]{Title}
 % \end{examplecode}
@@ -505,15 +480,17 @@ This work consists of the file  lni.dtx
 % In case there are many authors on a paper, they might not fit into the paper.
 % For that purpose, additionally use \cs{authorrunning}:
 % \begin{examplecode}
-% \authors[Firstname1 Lastname1 \and Firstname2 Lastname2 \and Firstname3 Lastname3]
-%  {Firstname1 Lastname1\footnote{...} \and Firstname2 Lastname2\footnote{...} \and
-%   Firstname3 Lastname3\footnote{...}}
+% \author[Firstname1 Lastname1 \and Firstname2 Lastname2 \and Firstname3 
+% Lastname3]
+%  {Firstname1 Lastname1\footnote{...} \and Firstname2 Lastname2\footnote{...} 
+% \and Firstname3 Lastname3\footnote{...}}
 % \authorrunning{Lastname1 et al.}
 % \end{examplecode}
 %
 % \subsection{Main text}
 % \subsubsection{Headings}
-% \DescribeMacro{\section}\DescribeMacro{\subsection}\DescribeMacro{\subsubsection}
+% \DescribeMacro{\section}\DescribeMacro{\subsection}%
+% \DescribeMacro{\subsubsection}
 % You can use the standard macros \cs{section}, \cs{subsection}, \dots{} for 
 % sectioning your text.
 % 
@@ -565,7 +542,7 @@ This work consists of the file  lni.dtx
 % \end{table}
 % \end{examplecode}
 %
-% \subsubsection{Listings/Source code}
+% \subsubsection{Listings\,/\,Source code}
 % The \lni{} bundle loads the \pkg{verbatim} and \pkg{listings} package. While the 
 % former is there for compatability, the later is the standard way of integrating 
 % source code listings into a \LaTeX{} document.
@@ -619,31 +596,39 @@ This work consists of the file  lni.dtx
 % \end{document}
 % \end{examplecode}
 %
-%
+% \newpage
 % \section{Trouble shooting}
 % This section lists the most common issues when using this template. For more
 % help, please head to
 % \href{https://github.com/egeerardyn/awesome-LaTeX/blob/master/README.md}%
-% {the awesome LaTeX list}.
+% {the awesome \LaTeX{} list}.
 %
-% If the compiler error is \texttt{! pdfTeX error (font expansion): auto
-% expansion is onlypossible with scalable fonts.}, the you have to install the
+% \begin{itemize}
+% \item If the compiler error is\\
+% \texttt{! pdfTeX error (font expansion): auto
+% expansion is only possible with scalable fonts.},\\then you have to install the
 % \pkg{cm-super} package. Afterwards, run \texttt{initexmf --mkmaps} on the
 % command line. A longer discussion is available at
 % \url{http://tex.stackexchange.com/a/324972/9075}.
-%
-% If the compiler error is ``\texttt{! LaTeX Error: Command \textbackslash
-% openbox already defined.}'', insert \cs{let}\cs{openbox}\cs{relax} before
-% \cs{usepackage\{amsthm\}}.
-%
-% If the compiler error is ``\texttt{! Undefined control sequence. l.84
-% \textbackslash ulp@afterend}'', just clean up (remove \texttt{paper.aux})
+% \item If the compiler error is\\
+% \texttt{! LaTeX Error: Command \textbackslash
+% openbox already defined.},\\
+% insert\\
+% \cs{let}\cs{openbox}\cs{relax} before \cs{usepackage\{amsthm\}}.
+% \item If the compiler error is\\
+% \texttt{! Undefined control sequence. l.84
+% \textbackslash ulp@afterend},\\
+% just clean up (remove \texttt{paper.aux}) and recompile.
+% \item If the compiler error is\\
+% \texttt{! Package xkeyval Error: 'family\_i'
+% undefined in families blx@opt@namepart'.},\\
+% it is an indicator that you
+% switched from \BibTeX{} to \pkg{biblatex}. Clean up (remove \texttt{paper.bbl})
 % and recompile.
-%
-% If the compiler error is ``\texttt{! Package xkeyval Error: 'family\_i'
-% undefined in families blx@opt@namepart'.}'', it is an indicator that you
-% switched from bibtex to biblatex. Clean up (remove \texttt{paper.bbl})
-% and recompile.
+% \item Errors with \BibTeX: The bst files may still report errors, although the 
+% output is okay. This will be solved as soon as possible. However, you might 
+% consider switching to \pkg{biblatex} (cf.~\cref{sec:bibliography}).
+% \end{itemize}
 %
 % \section{Bugs and feature request}
 % If you find a bug or have a feature request, please open an ``issue'' at the
@@ -806,12 +791,17 @@ This work consists of the file  lni.dtx
 \def\@@title[#1]#2{\gdef\@shorttitle{#1}\gdef\@title{#2}}
 %    \end{macrocode}
 %    \begin{macrocode}
+\newcommand{\@subtitle}{}
+\newcommand{\subtitle}[1]{\gdef\@subtitle{#1}}
+%    \end{macrocode}
+%    \begin{macrocode}
 \renewcommand{\author}{\@dblarg\@@author}
 \def\@@author[#1]#2{\gdef\@shortauthor{{\let\footnote\@gobble%
    \def\and{\unskip,\ }#1}}\gdef\@author{#2}}
 %    \end{macrocode}
 %    \begin{macrocode}
-\newcommand{\authorrunning}[1]{\fancyhead[LE]{\hspace{0.05cm}\small\thepage\hspace{5pt}#1}}
+\newcommand{\authorrunning}[1]{%
+   \fancyhead[LE]{\hspace{0.05cm}\small\thepage\hspace{5pt}#1}}
 %    \end{macrocode}
 %    \begin{macrocode}
 \newcommand*{\email}[1]{{\urlstyle{same}\protect\url{#1}}}
@@ -868,6 +858,11 @@ This work consists of the file  lni.dtx
   \raggedright % Linksbündig
   \let\footnote\thanks
     {\fontsize{14}{17}\fontseries{b}\selectfont \@title \par}%
+    \ifx\@subtitle\empty\else
+    \vskip.5\baselineskip
+    {\fontsize{10}{12}\selectfont\itshape
+    \@subtitle}
+    \fi%
     \vskip 19pt% Abstand nach dem Titel
     {\fontsize{10}{12}\selectfont
       \lineskip .5em%
@@ -889,8 +884,10 @@ This work consists of the file  lni.dtx
 %    \begin{macrocode}
 % Keywords
 \newif\ifkeywords
-\newenvironment{keywords}{\global\keywordstrue\fontsize{9}{10}\selectfont
-    \noindent\ignorespaces{\bfseries Keywords:\ }}{\global\keywordsfalse}
+\newenvironment{keywords}{%
+   \global\keywordstrue\fontsize{9}{10}\selectfont%
+   \def\and{\unskip;\space}%
+   \noindent\ignorespaces{\bfseries Keywords:\ }}{\global\keywordsfalse}
 \let\@RIGsection\section
 \pretocmd\@startsection{\ifkeywords\ClassError{lni}{keywords is an environment, not a macro}{Please change \string\keywords to an environment}\keywordsfalse\fi}{}{}   
 %    \end{macrocode}
@@ -2251,7 +2248,7 @@ FUNCTION {format.lab.names}
         { nameptr numnames =
             { s nameptr "{ff }{vv }{ll}{ jj}" format.name$ 
             "others" =
-                { s #1 "{ll}" format.name$ #2 text.prefix$ %% second sign of first author if there are others
+                { pop$ s #1 "{ll}" format.name$ #2 text.prefix$ %% second sign of first author if there are others
                 }
                 { s nameptr "{v{}}{l{}}" format.name$ * } %%formats last author
               if$
@@ -2263,13 +2260,12 @@ FUNCTION {format.lab.names}
         }
       while$
       numnames #3 > 
-        { s #1 "{ll}" format.name$ #2 text.prefix$ } % if more than 3 authors take second letter of first name
+        { pop$ s #1 "{ll}" format.name$ #2 text.prefix$ } % if more than 3 authors take second letter of first name
         'skip$
       if$
     }
     { s #1 "{v{}}{l{}}" format.name$
       duplicate$ text.length$ #2 <
-% Das dritte Zeichen?      
         { pop$ s #1 "{ll}" format.name$ #2 text.prefix$} %get rid of the rest of the name (only first two letters are needed for one author)
         'skip$
       if$
@@ -2405,7 +2401,7 @@ FUNCTION {author.sort}
 
 FUNCTION {author.editor.sort}
 { author empty$
-    { editor empty$
+   { editor empty$
 	{ key empty$
 	    { "to sort, need author, editor, or key in " cite$ * warning$
 	      ""
@@ -2415,8 +2411,8 @@ FUNCTION {author.editor.sort}
 	}
 	{ editor sort.format.names }
       if$
-    }
-    { author sort.format.names }
+   }
+   { author sort.format.names }
   if$
 }
 
@@ -2580,32 +2576,32 @@ EXECUTE {end.bib}
 %%% Mehrere Autoren werden durch \and voneinander getrennt.
 %%% Die Fußnote enthält die Adresse sowie eine E-Mail-Adresse.
 %%% Das optionale Argument (sofern angegeben) wird für die Kopfzeile verwendet.
-\author[Vorname1 Name1\and Vorname2 Name2]
-{Vorname1 Nachname1\footnote{Einrichtung/Universität, Abteilung, Anschrift, Postleitzahl Ort, \email{emailadresse@author1}}\and
- Vorname2 Nachname2\footnote{Einrichtung/Universität, Abteilung, Anschrift, Postleitzahl Ort, \email{emailadresse@author2}}
- und weitere Autorinnen und Autoren in der gleichen Notation}
-%
-\title[Kurztitel (falls nötig)]{Titel}
-%
-\startpage{11}% Beginn der Seitenzählung für diesen Beitrag
-\editor{Herausgeber et al.}
-\booktitle{Name-der-Konferenz}
+\title[Ein Kurztitel]{Ein sehr langer Titel über mehrere Zeilen mit sehr vielen 
+Worten und noch mehr Buchstaben}
+%%%\subtitle{Untertitel / Subtitle} % if needed
+\author[Vorname1 Nachname1 \and Firstname2 Lastname2]
+{Vorname1 Nachname1\footnote{Universität, Abteilung, Straße, Postleitzahl Ort, 
+Land \email{emailaddress@author1}} \and
+Firstname2 Lastname2\footnote{University, Department, Address, Country 
+\email{emailaddress@author2}}}
+\startpage{11} % Beginn der Seitenzählung für diesen Beitrag / Start page 
+%numbering at this number
+\editor{Herausgeber et al.} % Names of Editors
+\booktitle{Name-der-Konferenz} % Name of book title
 \year{2017}
 \maketitle
 
 \begin{abstract}
-Hier kommt die Zusammenfassung hin
-Add your abstract here
+Zusammenfassung / Some abstract
 \end{abstract}
 \begin{keywords}
-Hier kommen die Keywords hin
-Add your keywords here
+Schlagwort1 \and Schlagwort2 %Keyword1 \and Keyword2
 \end{keywords}
 %%% Beginn des Artikeltexts
-\section{Überschrift}
+\section{Überschrift/Heading}
 
-%%% Angabe der .bib-Datei (ohne Endung)
-\bibliography{mybibfile}
+%%% Angabe der .bib-Datei (ohne Endung) / State .bib file (for BibTeX usage)
+\bibliography{mybibfile} %\printbibliography if you use biblatex/Biber
 \end{document}
 %</template>
 %    \end{macrocode}
