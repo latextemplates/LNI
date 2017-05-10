@@ -14,7 +14,7 @@
 %% 
 \NeedsTeXFormat{LaTeX2e}[1999/12/01]
 \ProvidesClass{lni}
-    [2017/04/27 v1.2BETA Official class for submissions to the ``Lecture Notes
+    [2017/05/08 v1.3BETA Official class for submissions to the ``Lecture Notes
     in Informatics'']
 \def\@clearglobaloption#1{%
   \def\@tempa{#1}%
@@ -29,7 +29,6 @@
   \expandafter\ifx\@tempb\@gobble
     \let\@classoptionslist\@empty
   \fi}
-
 \DeclareOption{latin1}{\PassOptionsToPackage{latin1}{inputenc}}
 \DeclareOption{utf8}{\PassOptionsToPackage{utf8}{inputenc}}
 \DeclareOption{ansinew}{\PassOptionsToPackage{ansinew}{inputenc}}
@@ -48,42 +47,77 @@
 \newif\ifcrop
 \cropfalse
 \DeclareOption{crop}{\croptrue}
+\newif\ifnofonts
+\nofontsfalse
+\DeclareOption{nofonts}{\nofontstrue}
 \ExecuteOptions{utf8}
 \DeclareOption*{\ClassWarning{Option `\CurrentOption` is not supported!}}
 \ProcessOptions\relax
-
 \RequirePackage{iftex}
-\RequirePDFTeX
-\RequirePackage{hyphsubst}
-\HyphSubstIfExists{ngerman-x-latest}%
-   {\HyphSubstLet{ngerman}{ngerman-x-latest}%
-    \ClassInfo{lni}{Using latest German hyphenation patterns}}%
-   {\ClassWarning{lni}{Latest German hyphenation patterns could not be found!%
-      \MessageBreak If you write a German article you should check your%
-      installation}}%
+\ifPDFTeX
+   \RequirePackage{hyphsubst}
+   \HyphSubstIfExists{ngerman-x-latest}%
+      {\HyphSubstLet{ngerman}{ngerman-x-latest}%
+       \ClassInfo{lni}{Using latest German hyphenation patterns}}%
+      {\ClassWarning{lni}{Latest German hyphenation patterns could not be found!%
+         \MessageBreak If you write a German article you should check your%
+         installation}}%
+\fi%
 \LoadClass[10pt,twoside,a4paper,fleqn]{article}
-\RequirePackage{cmap}
-\RequirePackage{inputenc}
-\RequirePackage[T1]{fontenc}
+\ifPDFTeX
+   \RequirePackage{cmap}
+   \RequirePackage{inputenc}
+   \RequirePackage[T1]{fontenc}
+\fi%
 \iflnienglish
    \RequirePackage[ngerman,english]{babel}
 \else
    \RequirePackage[english,ngerman]{babel}
-\fi
+\fi%
 \useshorthands*{"}
 \addto\extrasenglish{\languageshorthands{ngerman}}
-\RequirePackage{newtxtext}
-\RequirePackage{newtxmath}
-\RequirePackage[zerostyle=b,scaled=.9]{newtxtt}
-\@ifpackagelater{newtxtt}{2014/11/18}%
-   {\txtt@upqtrue}%
-   {\ClassWarning{lni}{You are using an old version of `newtxtt'.\MessageBreak
-    Option `straightquotes' will not be used!}}%
-\RequirePackage[%
-   final,%
-   tracking=smallcaps,%
-   expansion=alltext,%
-   protrusion=alltext-nott]{microtype}%
+\ifnofonts
+   \ClassWarning{lni}{Option `nofonts' set! I will use standard fonts
+   \MessageBreak
+   instead of the New TX fonts. Your document will NOT look like the
+   \MessageBreak
+   final result for publication. This should only be used if you have
+   \MessageBreak
+   no possibility to install fonts or upgrade your TeX installation!}%
+\else
+   \ifPDFTeX
+      \RequirePackage{newtxtext}
+      \RequirePackage{newtxmath}
+      \RequirePackage[zerostyle=b,scaled=.9]{newtxtt}
+      \@ifpackagelater{newtxtt}{2014/11/18}%
+         {\txtt@upqtrue}%
+         {\ClassWarning{lni}{You are using an old version of
+         `newtxtt'.\MessageBreak
+          Option `straightquotes' will not be used!}}%
+   \else
+      \usepackage{newtxmath}
+      \usepackage[no-math]{fontspec}
+      \setmainfont{texgyretermes}[
+        Extension = .otf,
+        UprightFont = *-regular,
+        BoldFont = *-bold,
+        ItalicFont = *-italic,
+        BoldItalicFont = *-bolditalic,
+        Ligatures=TeX
+      ]
+   \fi%
+\fi%
+\ifPDFTeX
+   \RequirePackage[%
+      final,%
+      tracking=smallcaps,%
+      expansion=alltext,%
+      protrusion=alltext-nott]{microtype}%
+\else
+   \RequirePackage[%
+      final,%
+      protrusion=alltext-nott]{microtype}%
+\fi%
 \SetTracking{encoding=*,shape=sc}{50}%
 \DeclareFontFamily{U}{MnSymbolC}{}
 \DeclareSymbolFont{MnSyC}{U}{MnSymbolC}{m}{n}
@@ -97,6 +131,10 @@
   <12->   MnSymbolC12%
 }{}
 \DeclareMathSymbol{\powerset}{\mathord}{MnSyC}{180}
+\RequirePackage{ccicons}
+\RequirePackage{etoolbox}
+\newlength{\doihoffset}
+\newlength{\doivoffset}
 \ifcrop
    \RequirePackage[
      paperheight=23.5cm,paperwidth=15.5cm,
@@ -137,6 +175,8 @@
          \hss
       }%
    }}%
+   \setlength{\doihoffset}{1.45cm}
+   \setlength{\doivoffset}{1.2cm}
 \else
    \RequirePackage[
      total={12.6cm,19.2cm},
@@ -145,6 +185,8 @@
      headsep=.31cm,
      centering]
      {geometry}
+   \setlength{\doihoffset}{4.2cm}
+   \setlength{\doivoffset}{4.3cm}
 \fi%
 \RequirePackage[autostyle]{csquotes}
 \ifusebiblatex
@@ -167,6 +209,7 @@
     {\usebibmacro{postnote}}%
 \fi%
 \RequirePackage{graphicx}
+\RequirePackage{eso-pic}
 \RequirePackage{grffile}
 \RequirePackage{fancyhdr}
 \RequirePackage{listings}
@@ -202,6 +245,8 @@
 \newcommand{\authorrunning}[1]{%
    \fancyhead[LE]{\hspace{0.05cm}\small\thepage\hspace{5pt}#1}}
 \newcommand*{\email}[1]{{\urlstyle{same}\protect\url{#1}}}
+\newcommand{\@lnidoi}{}
+\newcommand{\lnidoi}[1]{\gdef\@lnidoi{#1}}
 \renewcommand\maketitle{\par%
 \begingroup
     \renewcommand\thefootnote{\@arabic\c@footnote}%
@@ -247,10 +292,10 @@
   \vskip -24pt% Abstand vor dem Titel
   \raggedright % Linksbündig
   \let\footnote\thanks
-    {\fontsize{14}{17}\fontseries{b}\selectfont\@title\par}%
+    {\fontsize{14}{17}\selectfont\bfseries\@title\par}%
     \ifx\@subtitle\empty\else
       \vskip 16pt
-      {\fontsize{10}{12}\fontseries{b}\selectfont\@subtitle}
+      {\fontsize{10}{12}\selectfont\bfseries\@subtitle}
     \fi%
     \vskip 19pt% Abstand nach dem Titel
     {\fontsize{10}{12}\selectfont
@@ -259,6 +304,23 @@
       \par}%
     \vskip 28pt% Abstand vor dem Abstract
   \end{center}%
+  \AddToShipoutPictureBG*{\AtPageLowerLeft{%
+    \put(\LenToUnit{\the\doihoffset},\LenToUnit{\the\doivoffset}){%
+      \ifusehyperref
+        \href{https://creativecommons.org/licenses/by-nc/3.0/}{\ccbynceu}
+      \else
+        \ccbynceu
+      \fi
+      \ifdefempty{\@lnidoi}{}{
+        \footnotesize
+        \ifusehyperref
+          \href{https://doi.org/\@lnidoi}{doi:\@lnidoi}
+        \else
+          doi:\@lnidoi
+        \fi%
+      }
+    }
+  }}
   \par
 }%
 \renewenvironment*{abstract}{%
@@ -276,9 +338,9 @@
 \pretocmd\@startsection{\ifkeywords\ClassError{lni}{keywords is an environment, not a macro}%
    {Please change \string\keywords\space to an environment}\keywordsfalse\fi}{}{}
 \renewcommand{\section}{\@startsection{section}{1}{\z@}%
-  {-16\p@ \@plus -4\p@ \@minus -4\p@}{5\p@ \@plus 4\p@ \@minus 4\p@}{\fontsize{12}{14}\fontseries{b}\selectfont}}
+  {-16\p@ \@plus -4\p@ \@minus -4\p@}{5\p@ \@plus 4\p@ \@minus 4\p@}{\fontsize{12}{14}\selectfont\bfseries}}
 \renewcommand{\subsection}{\@startsection{subsection}{2}{\z@}%
-  {-16\p@ \@plus -4\p@ \@minus -4\p@}{8\p@ \@plus 4\p@ \@minus 4\p@}{\fontsize{10}{12}\fontseries{b}\selectfont}}
+  {-16\p@ \@plus -4\p@ \@minus -4\p@}{8\p@ \@plus 4\p@ \@minus 4\p@}{\fontsize{10}{12}\selectfont\bfseries}}
 \setlength{\abovecaptionskip}{4pt}%Abstand vor der Bildunterschrift
 \setlength{\belowcaptionskip}{0pt}%Abstand nach der Bildunterschrift
 \setlength{\intextsep}{6pt}%Abstand nach der Grafik
@@ -492,6 +554,7 @@
 %% This work consists of the file  lni.dtx
 %%                                 lni.ins
 %%                                 README.md
+%%                                 CHANGELOG.md
 %%           and the derived files lni.pdf
 %%                                 lni.cls
 %%                                 lni-author-template.tex
