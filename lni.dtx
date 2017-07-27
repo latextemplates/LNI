@@ -26,28 +26,6 @@
 %% distributed and modified.
 %% Modified files should be clearly indicated as such and renamed.
 %%
-%%***************************************************      
-% Changelog:
-%
-%  1.0       (07.04.17), Martin Sievers
-%  - Revised version
-%
-%            (17.12.14), Judith Michael, Alpen-Adria-Universität Klagenfurt, Austria
-% Changes:  
-%  - Last Name before the prename
-%  - ; between Autors
-%  - : before title
-%  - Lable: Abbreviation of name of first author instead of + (former: A+09 or WFEL14, now Az09 and Wa14)
-%  - Lable: Use first 2 letters of title if there is no author
-%  - add : after In (functions inproceedings and inbook) 
-%  - no emphasize of titles
-%  - editors in bracelets ()
-%  - correct order of reference infos
-%  - correct signs (.,:()) between reference infos 
-%  - Add second prename
-%  - change order of series (not: "number" in "series", now "series" "number"
-%
-%%***************************************************
 %
 \endpreamble
 
@@ -63,28 +41,6 @@
 %% distributed and modified.
 %% Modified files should be clearly indicated as such and renamed.
 %%
-%%***************************************************      
-% Changelog:
-%
-%  1.0       (07.04.17), Martin Sievers
-%  - Revised version
-%
-%            (17.12.14), Judith Michael, Alpen-Adria-Universität Klagenfurt, Austria
-% Changes:  
-%  - Last Name before the prename
-%  - ; between Autors
-%  - : before title
-%  - Lable: Abbreviation of name of first author instead of + (former: A+09 or WFEL14, now Az09 and Wa14)
-%  - Lable: Use first 2 letters of title if there is no author
-%  - add : after In (functions inproceedings and inbook) 
-%  - no emphasize of titles
-%  - editors in bracelets ()
-%  - correct order of reference infos
-%  - correct signs (.,:()) between reference infos 
-%  - Add second prename
-%  - change order of series (not: "number" in "series", now "series" "number"
-%
-%%***************************************************
 %
 \endpreamble
 
@@ -163,7 +119,7 @@ This work consists of the file  lni.dtx
 %<class>\NeedsTeXFormat{LaTeX2e}[1999/12/01]
 %<class>\ProvidesClass{lni}
 %<*class>
-    [2017/05/08 v1.3BETA Official class for submissions to the ``Lecture Notes 
+    [2017/07/26 v1.4BETA Official class for submissions to the ``Lecture Notes 
     in Informatics'']
 %</class>
 %<*driver>
@@ -189,9 +145,9 @@ This work consists of the file  lni.dtx
 \usepackage[%
 	pdftitle={lni: Official LaTeX class for submissions to the ``Lecture Notes in 
    	Informatics'', published by the ``Gesellschaft für Informatik e.\,V.'' (GI)},
-   pdfauthor={Martin Sievers},
-   urlcolor=blue,%
-	linktocpage,%
+    pdfauthor={Martin Sievers},
+    urlcolor=blue,%
+	linktoc=both,%
 	colorlinks=true]{hyperref}
 \usepackage[nameinlink,capitalise]{cleveref}
 
@@ -302,6 +258,12 @@ This work consists of the file  lni.dtx
 % \changes{v1.2}{2017/05/04}{Added (partial) support for XeTeX and LuaTeX} 
 % \changes{v1.3}{2017/05/04}{Added option \opt{nofonts} to suppress font 
 % loading completely} 
+% \changes{v1.3}{2017/05/08}{Changed syntax for \pkg{fontspec}} 
+% \changes{v1.4}{2017/05/27}{Added new macros taken from the EMISA class file}
+% \changes{v1.4}{2017/05/27}{Added option \opt{oldfonts} to use a font package
+% available}
+% \changes{v1.4}{2017/07/26}{Added package \pkg{caption} and changed all 
+% \cs{fontsize} calls to nativ \LaTeX{} macros}
 %
 % \GetFileInfo{\jobname.dtx}
 % \DoNotIndex{\newcommand,\newenvironment}
@@ -309,7 +271,8 @@ This work consists of the file  lni.dtx
 % \title{\textsf{lni} -- Official class for submissions to the\\%
 % ``Lecture Notes in Informatics''\thanks{This file describes version
 % \fileversion, last revised \filedate.}}
-% \author{Martin Sievers\setcounter{footnote}{6}\thanks{Email: martin.sievers@schoenerpublizieren.de}}
+% \author{Martin Sievers\setcounter{footnote}{6}\thanks{Email: 
+% martin.sievers@schoenerpublizieren.de}}
 % \date{Released \filedate}
 %
 % \maketitle
@@ -345,7 +308,7 @@ This work consists of the file  lni.dtx
 % The \lni{} bundle is currently distributed via 
 % \href{https://github.com/gi-ev/LNI}{GitHub}, the
 % \href{https://www.gi.de/service/publikationen/lni/autorenrichtlinien.html}
-% {GI website} and (preferably) \href{https://www.ctan.org}{CTAN}.
+% {GI website} and (preferably) \href{https://www.ctan.org/pkg/lni}{CTAN}.
 % The later is the basis for all updates of the two main \TeX{} distributions
 % \MiKTeX{} and \TeX{}~Live. Thus the easiest way to get all files needed to 
 % typeset an article for the \LNI{} is to use the package manager of your
@@ -364,7 +327,7 @@ This work consists of the file  lni.dtx
 % distributions. Therefore, if you are confronted 
 % with a missing package, please try to download and install it using your 
 % distribution's package manager. Alternatively go to 
-% \href{www.ctan.org}{CTAN} to download missing packages.
+% \href{http://www.ctan.org}{CTAN} to download missing packages.
 %
 % Please note, that the support of \hologo{XeLaTeX} and \hologo{LuaLaTeX} is 
 % only partial. For example the mono font is not the same. Moreover \hologo{pdfLaTeX} 
@@ -398,12 +361,12 @@ This work consists of the file  lni.dtx
 % \pkg{biblatex} and the tool \texttt{biber}.
 %
 % There is even a specialized package \pkg{biblatex-lni} which is automatically 
-% used when setting the class option \opt{biblatex}. Please see as well 
+% used when setting the class option \opt{biblatex}. For more information see as well 
 % \cref{sec:bibliography}.
 %
 % \DescribeOption{crop\space(new in v1.1)}%
 % Option \opt{crop} gives you some crop marks (using the package \pkg{crop}) to 
-%better illustrate the final 
+% better illustrate the final 
 % result of your article.
 %
 % \DescribeOption{nocleveref}When referencing figures, one has to type
@@ -412,13 +375,22 @@ This work consists of the file  lni.dtx
 % used with all floating objects. The package is loaded as default. In case it 
 % causes issues, one can disable it using with the \opt{nocleveref} option.
 %
-% \DescribeOption{nohyperref}\pkg{hyperref} is used for colored hyperlink 
+% \DescribeOption{nohyperref}\pkg{hyperref} is used for colored hyperlinks 
 % within the articles. If you consider problems or just do not want that 
 % feature, you can disable it by using the option \opt{nohyperref}.
 %
-% \DescribeOption{nofonts\space(new in v1.3)}On older systems you might not 
-% have installed the New TX fonts. Therefore option \opt{nofonts} allows to 
+% \DescribeOption{nofonts\space(new in v1.3, deprecated in v1.4)}On old systems you might not
+% have installed the New TX fonts. If for whatever reason the \opt{oldfonts} option 
+% does not work for you, you can activate option \opt{nofonts}. This allows to 
 % suppress font loading completely using the engines standard fonts instead.
+% Usually there should be no need to do so. Please note, that your output will differ 
+% from the publishers'.
+%
+% \DescribeOption{oldfonts\space(new in v1.4)}On older systems you might not
+% have installed the New TX fonts. Therefore option \opt{oldfonts} allows to
+% to load the package \pkg{mathptmx} instead of the New TX fonts. The output will
+% be in accordance to (or at least near) the publisher's requirements.
+%
 % \newpage
 % \section{Setting up a document}
 % You can use the file \file{lni-author-template.tex} as a starting point 
@@ -493,8 +465,9 @@ This work consists of the file  lni.dtx
 % \subsection{Abstract and keywords}
 % \DescribeEnv{abstract}\DescribeEnv{keywords}%
 % \DescribeMacro{\and\space(new in v1.1)}%
-% Each article should start with a short abstract and some keywords. Please use 
-% the environments \env{abstract} and \env{keywords} for that purpose:
+% Each article should start with a short (70 to 150 words) abstract and some 
+% keywords. Please use the environments \env{abstract} and \env{keywords} for 
+% that purpose:
 % \begin{examplecode}
 % \begin{abstract}
 % Tell the reader what your article is about
@@ -590,10 +563,33 @@ This work consists of the file  lni.dtx
 % specific programming language.
 %
 % \subsubsection{Math}
-% If you need mathematics, you can load \pkg{amsmath} and \pkg{mathtools} for 
+% If you need mathematics, you can load packages \pkg{amsmath} and \pkg{mathtools} for 
 % additional features. The \lni{} class offers by default the command 
 % \cs{powerset} to render the powerset symbol correctly as $\powerset$ and not 
 % as Weierstrass p ($\wp$).
+%
+% \subsubsection{Abbreviations and initialisms}
+% \DescribeMacro{\eg}\DescribeMacro{\ie}\DescribeMacro{\cf}\DescribeMacro{\etal}%
+% To achieve consistent typesetting of common abbreviations, macros are predefined by the class. These macros should \emph{consistently} being used instead of writing the plain version. For example use \verb|\eg| rather than {\verb|e.g.,|}. The macros take care of spacing within and after the abbreviations.
+% \begin{itemize}
+% \item \cs{eg} for e.\,g.
+% \item \cs{ie} for i.\,e.
+% \item \cs{cf} for cf.
+% \item \cs{etal} for et~al.
+% \end{itemize}
+%
+% \DescribeMacro{\OMG}\DescribeMacro{\BPM}\DescribeMacro{\BPMN}\DescribeMacro{\UML}%
+% In addition to common abbreviations, further initialisms are provided by the class for convenience and for a consistent visual appearance. Note that the class uses \textsc{smallcaps} for typesetting initialisms. The list of predefined initialisms comprises:
+%
+% \begin{itemize}
+% \item \cs{OMG} for \textsc{omg} (Object Management Group).
+% \item \cs{BPM} for \textsc{bpm} (Business Process Management).
+% \item \cs{BPMN} for \textsc{bpmn} (Business Process Model and Notation).
+% \item \cs{BPEL} for \textsc{bpel} (Business Process Execution Language).
+% \item \cs{UML} for \textsc{uml} (Unified Modelling Language).
+% \end{itemize}
+%
+% \DescribeMacro{\lniinitialism} You can add your own initialisms by stating \cs{lniinitialism\marg{\textbackslash initialism\_macro}\marg{text}} in the preamble.
 %
 % \subsection{Bibliography}\label{sec:bibliography}
 % \enlargethispage{\baselineskip}The old \lni{} class file only supports \BibTeX{} with bst files for German 
@@ -633,7 +629,6 @@ This work consists of the file  lni.dtx
 % \end{document}
 % \end{examplecode}
 %
-% \newpage
 % \section{Trouble shooting}
 % This section lists the most common issues when using this template. For more
 % help, please head to
@@ -659,7 +654,7 @@ This work consists of the file  lni.dtx
 % just clean up (remove \texttt{paper.aux}) and recompile.
 % \item If the compiler error is\\
 % \texttt{!Package xkeyval Error: 'family\_i'
-% undefined in families blx@opt@namepart'.},\\
+% undefined in families blx@opt@name}\\\texttt{part'.},\\
 % it is an indicator that you
 % switched from \BibTeX{} to \pkg{biblatex}. Clean up (remove 
 % \texttt{paper.bbl}) and recompile.
@@ -670,7 +665,7 @@ This work consists of the file  lni.dtx
 %
 % \section{Bugs and feature request}
 % If you find a bug or have a feature request, please open an ``issue'' at the
-% \href{https://github.com/sieversMartin/LNI/issues}{GitHub website}.
+% \href{https://github.com/gi-ev/LNI/issues}{GitHub website}.
 %
 % \StopEventually{^^A
 %  \PrintChanges
@@ -717,7 +712,12 @@ This work consists of the file  lni.dtx
 \DeclareOption{crop}{\croptrue}
 \newif\ifnofonts
 \nofontsfalse
-\DeclareOption{nofonts}{\nofontstrue}
+\DeclareOption{nofonts}{\nofontstrue\autofontsfalse}
+\newif\ifoldfonts
+\oldfontsfalse
+\DeclareOption{oldfonts}{\oldfontstrue\autofontsfalse}
+\newif\ifautofonts
+\autofontstrue
 \ExecuteOptions{utf8}
 \DeclareOption*{\ClassWarning{Option `\CurrentOption` is not supported!}}
 \ProcessOptions\relax
@@ -750,7 +750,61 @@ This work consists of the file  lni.dtx
 %    \end{macrocode}
 % Define a modern variant of Times as the main font
 %    \begin{macrocode}
-\ifnofonts
+\ifautofonts
+   \ClassInfo{lni}{*******************************************************}
+   \MessageBreak
+   \ClassInfo{lni}{Checking for fonts ...}
+   \ClassInfo{lni}{*******************************************************}
+   \ifPDFTeX
+      \IfFileExists{newtxtext.sty}
+         {%
+            \RequirePackage{newtxtext}
+            \RequirePackage{newtxmath}
+            \RequirePackage[zerostyle=b,scaled=.9]{newtxtt} 
+%    \end{macrocode}
+% For compatibility with version of \pkg{newtxtt} prior to v1.05 we set the 
+% option \opt{straightquotes} manually for recent versions
+%    \begin{macrocode}
+            \@ifpackagelater{newtxtt}{2014/11/18}%
+               {\txtt@upqtrue}%
+               {\ClassWarning{lni}{You are using an old version of 
+                `newtxtt'.\MessageBreak 
+                Option `straightquotes' will not be used!}}%
+%    \end{macrocode}         
+%    \begin{macrocode}
+         }%
+         {\IfFileExists{mathptmx.sty}
+            {\oldfontstrue}%
+            {\nofontstrue}%
+         }%
+%    \end{macrocode}         
+% for \hologo{XeTeX} or \hologo{LuaTeX} we use \pkg{fontspec}
+%    \begin{macrocode}
+   \else%
+      \IfFileExists{newtxmath.sty}
+         {\RequirePackage{newtxmath}}%
+         {}%
+      \RequirePackage[no-math]{fontspec}
+      \IfFontExistsTF{texgyretrmes-regular.otf}
+         {%
+          \setmainfont{texgyretermes}[
+             Extension = .otf,
+             UprightFont = *-regular,
+             BoldFont = *-bold,
+             ItalicFont = *-italic,
+             BoldItalicFont = *-bolditalic,
+             Ligatures=TeX
+             ]
+         }%
+         {\IfFileExists{mathptmx.sty}
+            {\oldfontstrue}%
+            {\nofontstrue}%
+         }%
+   \fi%         
+\fi%         
+\ifoldfonts
+   \RequirePackage{mathptmx}
+\else% nofonts activated
    \ClassWarning{lni}{Option `nofonts' set! I will use standard fonts
    \MessageBreak
    instead of the New TX fonts. Your document will NOT look like the
@@ -758,35 +812,6 @@ This work consists of the file  lni.dtx
    final result for publication. This should only be used if you have
    \MessageBreak
    no possibility to install fonts or upgrade your TeX installation!}%
-\else
-   \ifPDFTeX
-      \RequirePackage{newtxtext}
-      \RequirePackage{newtxmath}
-      \RequirePackage[zerostyle=b,scaled=.9]{newtxtt}
-%    \end{macrocode}
-% For compatibility with version of \pkg{newtxtt} prior to v1.05 we set the 
-% option \opt{straightquotes} manually for recent versions
-%    \begin{macrocode}
-      \@ifpackagelater{newtxtt}{2014/11/18}%
-         {\txtt@upqtrue}%
-         {\ClassWarning{lni}{You are using an old version of 
-         `newtxtt'.\MessageBreak 
-          Option `straightquotes' will not be used!}}%
-%    \end{macrocode}
-% for \hologo{XeTeX} or \hologo{LuaTeX} we use \pkg{fontspec}
-%    \begin{macrocode}
-   \else
-      \usepackage{newtxmath}
-      \usepackage[no-math]{fontspec}
-      \setmainfont{texgyretermes}[
-        Extension = .otf,
-        UprightFont = *-regular,
-        BoldFont = *-bold,
-        ItalicFont = *-italic,
-        BoldItalicFont = *-bolditalic,
-        Ligatures=TeX
-      ]
-   \fi%
 \fi%
 %    \begin{macrocode}
 \ifPDFTeX
@@ -878,6 +903,21 @@ This work consists of the file  lni.dtx
    \setlength{\doihoffset}{4.2cm}
    \setlength{\doivoffset}{4.3cm}
 \fi%
+%    \end{macrocode}
+% We change \cs{small} and \cs{Large} to get the correct baseline skips
+%    \begin{macrocode}
+\renewcommand\small{%
+   \@setfontsize\small\@ixpt{10}%
+   \abovedisplayskip 8.5\p@ \@plus3\p@ \@minus4\p@
+   \abovedisplayshortskip \z@ \@plus2\p@
+   \belowdisplayshortskip 4\p@ \@plus2\p@ \@minus2\p@
+   \def\@listi{\leftmargin\leftmargini
+               \topsep 4\p@ \@plus2\p@ \@minus2\p@
+               \parsep 2\p@ \@plus\p@ \@minus\p@
+               \itemsep \parsep}%
+   \belowdisplayskip \abovedisplayskip
+}
+\renewcommand\Large{\@setfontsize\Large\@xivpt{17}}
 %    \end{macrocode}
 %    \begin{macrocode}
 \RequirePackage[autostyle]{csquotes}
@@ -1027,13 +1067,13 @@ This work consists of the file  lni.dtx
   \vskip -24pt% Abstand vor dem Titel
   \raggedright % Linksbündig
   \let\footnote\thanks
-    {\fontsize{14}{17}\selectfont\bfseries\@title\par}%
+    {\Large\bfseries\@title\par}%
     \ifx\@subtitle\empty\else
       \vskip 16pt
-      {\fontsize{10}{12}\selectfont\bfseries\@subtitle}
+      {\normalsize\bfseries\@subtitle}
     \fi%
     \vskip 19pt% Abstand nach dem Titel
-    {\fontsize{10}{12}\selectfont
+    {\normalsize%
       \lineskip .5em%
         \@author
       \par}%
@@ -1063,9 +1103,8 @@ This work consists of the file  lni.dtx
 % \begin{environment}{abstract}
 %    \begin{macrocode}
 \renewenvironment*{abstract}{%
- \renewcommand{\abstractname}{Abstract}
- \fontsize{9}{10}\selectfont
-    \noindent\ignorespaces{\bfseries\abstractname:\ }%
+   \renewcommand{\abstractname}{Abstract}%
+   \small\noindent\ignorespaces{\bfseries\abstractname:\ }%
 }{\endquotation}  
 %    \end{macrocode}
 % \end{environment}
@@ -1073,7 +1112,7 @@ This work consists of the file  lni.dtx
 %    \begin{macrocode}
 \newif\ifkeywords
 \newenvironment{keywords}%
-   {\global\keywordstrue\fontsize{9}{10}\selectfont%
+   {\global\keywordstrue\small%
     \def\and{\unskip;\space}%
     \noindent\ignorespaces{\bfseries Keywords:\ }}%
    {\global\keywordsfalse}
@@ -1085,26 +1124,18 @@ This work consists of the file  lni.dtx
 % Section headings
 %    \begin{macrocode}
 \renewcommand{\section}{\@startsection{section}{1}{\z@}%
-  {-16\p@ \@plus -4\p@ \@minus -4\p@}{5\p@ \@plus 4\p@ \@minus 4\p@}{\fontsize{12}{14}\selectfont\bfseries}}
+  {-16\p@ \@plus -4\p@ \@minus -4\p@}{5\p@ \@plus 4\p@ \@minus 
+  4\p@}{\large\bfseries}}
 \renewcommand{\subsection}{\@startsection{subsection}{2}{\z@}%
-  {-16\p@ \@plus -4\p@ \@minus -4\p@}{8\p@ \@plus 4\p@ \@minus 4\p@}{\fontsize{10}{12}\selectfont\bfseries}}
+  {-16\p@ \@plus -4\p@ \@minus -4\p@}{8\p@ \@plus 4\p@ \@minus 
+  4\p@}{\normalsize\bfseries}}
 %    \end{macrocode}
 % Bildunterschriften
 %    \begin{macrocode}
-\setlength{\abovecaptionskip}{4pt}%Abstand vor der Bildunterschrift
-\setlength{\belowcaptionskip}{0pt}%Abstand nach der Bildunterschrift
+\RequirePackage{caption}
+\captionsetup[figure]{style=base,skip=4pt,font=small}
+\captionsetup[table]{style=base,skip=6pt,font=small}
 \setlength{\intextsep}{6pt}%Abstand nach der Grafik
-\long\def\@makecaption#1#2{%
-  \vskip\abovecaptionskip
-  {\small
-   \sbox\@tempboxa{#1: #2}%
-  \ifdim \wd\@tempboxa >\hsize
-    #1: #2\par
-  \else
-    \global \@minipagefalse
-    \hb@xt@\hsize{\hfil\box\@tempboxa\hfil}%
-  \fi}
-  \vskip\belowcaptionskip}
 %    \end{macrocode}
 % Take care of floats
 %    \begin{macrocode}
@@ -1125,17 +1156,7 @@ This work consists of the file  lni.dtx
 %    \begin{macrocode}
 \def\fps@table{htbp}
 \def\fnum@table{\tablename~\thetable}
-\renewcommand{\arraystretch}{1.1}%Abstand zu Linien in Tabelle
-\renewenvironment{table}
-   {\setlength\abovecaptionskip{6\p@}%
-    \setlength\belowcaptionskip{0\p@}%
-    \@float{table}}%
-   {\end@float}%
-\renewenvironment{table*}
-   {\setlength\abovecaptionskip{6\p@}%
-    \setlength\belowcaptionskip{0\p@}%
-    \@dblfloat{table}}%
-   {\end@dblfloat}%
+\renewcommand{\arraystretch}{1.1}
 %    \end{macrocode}
 % Indention for equations with fleqn option
 %    \begin{macrocode}
@@ -1275,6 +1296,9 @@ This work consists of the file  lni.dtx
 \g@addto@macro{\UrlBreaks}{\UrlOrds}
 %    \end{macrocode}
 %    \begin{macrocode}
+\RequirePackage{xspace}
+%    \end{macrocode}
+%    \begin{macrocode}
 \ifusehyperref
    \RequirePackage[pdfusetitle]{hyperref}
    \hypersetup{%
@@ -1320,13 +1344,26 @@ This work consists of the file  lni.dtx
       \bibliographystyle{lnig}%
    \fi%
 \fi%
+\newcommand*{\lni@abbrv}[1]{#1\@\xspace}
+\newcommand*{\lniabbrv}[2]{\gdef#1{\lni@abbrv{#2}}}
+\newcommand*{\lni@initialism}[1]{\textsc{#1}\xspace}
+\newcommand*{\lniinitialism}[2]{\gdef#1{\lni@initialism{#2}}}
+\newcommand*{\ie}{\lni@abbrv{i.\,e.}}
+\newcommand*{\eg}{\lni@abbrv{e.\,g.}}
+\newcommand*{\cf}{\lni@abbrv{cf.}}
+\newcommand*{\etal}{\lni@abbrv{et~al.}}
+\newcommand*{\OMG}{\lni@initialism{omg}}
+\newcommand*{\BPM}{\lni@initialism{bpm}}
+\newcommand*{\BPMN}{\lni@initialism{bpmn}}
+\newcommand*{\BPEL}{\lni@initialism{bpel}}
+\newcommand*{\UML}{\lni@initialism{uml}}
 %    \end{macrocode}
 % bibliography
 %    \begin{macrocode}
 \renewenvironment{thebibliography}[1]
 {\iflnienglish\selectlanguage{english}\else\selectlanguage{ngerman}\fi
    \section*{\refname}%
-   \bgroup\fontsize{9}{10}\selectfont
+   \bgroup\small%
    \list{\@biblabel{\@arabic\c@enumiv}}%
    {\settowidth\labelwidth{\@biblabel{#1}}%
       \leftmargin\labelwidth
@@ -2802,7 +2839,8 @@ Firstname2 Lastname2\footnote{University, Department, Address, Country
 \maketitle
 
 \begin{abstract}
-Zusammenfassung / Some abstract
+This is a brief overview of the paper, which should be 70 to 150 words long and 
+include the most relevant points. This has to be a single paragraph.
 \end{abstract}
 \begin{keywords}
 Schlagwort1 \and Schlagwort2 %Keyword1 \and Keyword2
