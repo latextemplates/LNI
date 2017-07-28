@@ -3,8 +3,8 @@
 This repository aims to provide a quick start for modern LaTeXing with [LNI].
 This README is best viewed in a markdown viewer or [on GitHub](https://github.com/latextemplates/LNI/blob/master/README.md).
 
-In most cases, the template provided by [sieversMartin/LNI](https://github.com/sieversMartin/LNI/) is enough.
-It provides [a very good documentation](https://github.com/sieversMartin/LNI/blob/master/lni.pdf).
+In most cases, the template provided by [gi-ev/LNI](https://github.com/gi-ev/LNI) is enough.
+It provides [a very good documentation](https://github.com/gi-ev/LNI/blob/master/lni.pdf).
 
 This repository here adds following items:
 
